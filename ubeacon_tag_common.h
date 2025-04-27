@@ -14,19 +14,6 @@ extern "C" {
 // 距离相关数据单位默认m
 // 有的数据为了节省空间使用了倍率转换，变量以下划线开头
 
-typedef uint8_t ubeacon_checksum_t;
-ubeacon_checksum_t ubeacon_get_sum(const void *data, int data_size);
-static inline bool ubeacon_verify_sum(const void *data, int data_size) {
-  return *(const ubeacon_checksum_t *)((const uint8_t *)data + data_size -
-                                       sizeof(ubeacon_checksum_t)) ==
-         ubeacon_get_sum(data, data_size - sizeof(ubeacon_checksum_t));
-}
-static inline void ubeacon_update_sum(void *data, int data_size) {
-  *(ubeacon_checksum_t *)((uint8_t *)data + data_size -
-                          sizeof(ubeacon_checksum_t)) =
-      ubeacon_get_sum(data, data_size - sizeof(ubeacon_checksum_t));
-}
-
 typedef uint8_t ubeacon_msg_id_t;
 
 typedef enum {

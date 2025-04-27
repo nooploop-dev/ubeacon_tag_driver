@@ -1,5 +1,5 @@
 #include "catch2/catch_all.hpp"
-#include "ubeacon_tag_common.h"
+#include "ubeacon_tag_uart.h"
 
 TEST_CASE("checksum") {
   ubeacon_checksum_t sum = 0x08;
