@@ -1,4 +1,4 @@
-#include "ubeacon_tag.h"
+#include "ubeacon_tag_common.h"
 
 ubeacon_checksum_t ubeacon_get_sum(const void *data, int data_size) {
   const uint8_t *p = (uint8_t *)data;
