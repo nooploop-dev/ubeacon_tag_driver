@@ -126,6 +126,16 @@ typedef struct {
   // 如果使能tag_pos_even_error，定位失败仍然会输出结果，但error_code非零
   uint8_t error_code : 4;
   uint8_t area_id : 4;
+  uint8_t reserved;
+  uint8_t anchor_count : 4;
+  uint8_t : 0;
+  struct {
+    ubeacon_addr_t addr;
+    // rx_rssi = _rx_rssi/-2
+    uint8_t _rx_rssi;
+    // rx_rate = _rx_rate/255
+    uint8_t _rx_rate;
+  } anchors[9];
 } UbeaconLocationResult;
 
 // ROM 标签和外部的通信方式软件配置
