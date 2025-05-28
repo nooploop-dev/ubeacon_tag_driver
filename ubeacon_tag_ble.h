@@ -27,7 +27,7 @@ typedef struct {
   uint8_t flag_data;      // 0x06
   uint8_t ad_length_1;    // 0x1b
   uint8_t ad_type;        // 0xff
-  uint8_t company_id[2];  // 默认0x06 0x39 可配置
+  uint8_t company_id[2];  // 默认0x39,0x06 可配置
   uint8_t user_data_type; // 默认0x50 可配置
   uint8_t msg_id;         // 0x44
   uint8_t uid[6];         // 设备唯一id
