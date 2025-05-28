@@ -45,7 +45,6 @@ typedef enum {
   UBEACON_MSG_UWB_INTERFACE_PARAM = UBEACON_MSG_WRITE_UWB_INTERFACE_PARAM,
 
   UBEACON_MSG_ANCHOR_SIGNAL = 96,
-  UBEACON_MSG_ANCHOR_DDOA = 97,
 
   UBEACON_MSG_READ_RUN_TIME_PARAM = 100,
   UBEACON_MSG_WRITE_RUN_TIME_PARAM = 101,
@@ -54,6 +53,8 @@ typedef enum {
   UBEACON_MSG_READ_BLE_INTERFACE_PARAM = 102,
   UBEACON_MSG_WRITE_BLE_INTERFACE_PARAM = 103,
   UBEACON_MSG_BLE_INTERFACE_PARAM = UBEACON_MSG_WRITE_BLE_INTERFACE_PARAM,
+
+  UBEACON_MSG_ANCHOR_DDOAS = 104,
 } ubeacon_msg_e;
 
 // 表示标签本地时间，单位us，复位后从0开始
@@ -245,13 +246,15 @@ typedef struct {
 // 信标之间的距离差数据
 typedef struct {
   ubeacon_local_time_us_t local_time_us;
+  uint8_t reserved;
+  uint8_t count;
+  struct {
   ubeacon_addr_t a0;
   ubeacon_addr_t a1;
-  // ddoa = dis_tag_to_a1 - dis_tag_to_a0 = _ddoa/100
-  int16_t _ddoa;
-  // ddoa_std = _ddoa_std/100
-  uint16_t _ddoa_std;
-} UbeaconAnchorDdoa;
+    // ddoa = dis_tag_to_a1 - dis_tag_to_a0
+    int16_t ddoa_cm;
+  } datas[10];
+} UbeaconAnchorDdoas;
 
 #ifdef __cplusplus
 }
