@@ -108,6 +108,10 @@ typedef struct {
   } output;
   // 没有收到信标信号时，周期嗅探的默认占空比 1~100 默认20
   uint8_t sniff_duty_cycle;
+  // 前后两次更新的最大间隔时间
+  uint8_t update_interval_max;
+  // 前后两次更新超过此间隔时间将触发滤波重置
+  uint16_t reset_interval;
 } UbeaconParam;
 
 // RAM 运行时工作参数
@@ -249,8 +253,8 @@ typedef struct {
   uint8_t reserved;
   uint8_t count;
   struct {
-  ubeacon_addr_t a0;
-  ubeacon_addr_t a1;
+    ubeacon_addr_t a0;
+    ubeacon_addr_t a1;
     // ddoa = dis_tag_to_a1 - dis_tag_to_a0
     int16_t ddoa_cm;
   } datas[10];
