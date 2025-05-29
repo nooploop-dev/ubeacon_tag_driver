@@ -18,20 +18,6 @@ string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELWITHDEBINFO
                ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
 
-if(MSVC)
-  add_compile_options(/utf-8)
-  add_compile_options(/W4)
-  add_compile_options(/permissive-)
-  add_compile_options(/wd4201)
-  add_compile_options(/wd4200)
-  add_compile_options(/bigobj)
-  add_compile_definitions(NOMINMAX)
-  add_compile_definitions(_WIN32_WINNT=0x0A00)
-else()
-  add_compile_options(-Wall -Wextra -pedantic -Wno-gnu-anonymous-struct
-                      -Wno-nested-anon-types -Wno-zero-length-array)
-endif()
-
 FetchContent_Declare(
   CLI11
   GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git

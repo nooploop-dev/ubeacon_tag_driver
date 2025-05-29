@@ -2,3 +2,7 @@
 build/
 .cache/
 logs/
+.vs/
+out/
+CMakeSettings.json
+CMakeLists.txt.user
