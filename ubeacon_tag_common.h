@@ -81,7 +81,7 @@ typedef struct {
   //  标签期望高度，也即标签大部分状态下距离地面的高度 默认1.2m
   float expect_z;
   // 标签期望高度的标准差，高度变化大的标准差也需要调大，但这部分不确定性会影响xy
-  // z_noise = 0.1m*_z_noise 默认0.1m
+  // z_noise = 0.01m*_z_noise 默认0.1m
   uint8_t _z_noise;
   // 滤波数据平滑窗口 越大越平滑 但对应延迟也越大 0~5 默认2
   uint8_t smooth_window : 4;
@@ -229,18 +229,18 @@ typedef struct {
   uint8_t reserved;
   struct {
     ubeacon_addr_t addr;
-    // fp_index = _fp_index/10
+    // fp_index = _fp_index*0.1
     int16_t _fp_index;
     int8_t fp_to_peak;
-    // mc = _mc/100
+    // mc = _mc*0.01
     uint8_t _mc;
-    // 接收信号强度 rx_rssi = _rx_rssi/-2
+    // 接收信号强度 rx_rssi = -_rx_rssi*0.5
     uint8_t _rx_rssi;
-    // 第一路径信号强度 fp_rssi = _fp_rssi/-2
+    // 第一路径信号强度 fp_rssi = -_fp_rssi*0.5
     uint8_t _fp_rssi;
-    // uwb_clock_offset_ppm = _uwb_clock_offset_ppm/100
+    // uwb_clock_offset_ppm = _uwb_clock_offset_ppm*0.01
     int16_t _uwb_clock_offset_ppm;
-    // mcu_clock_offset_ppm = _mcu_clock_offset_ppm/100
+    // mcu_clock_offset_ppm = _mcu_clock_offset_ppm*0.01
     int16_t _mcu_clock_offset_ppm;
     // 近期该信标信号的收包率 rx_rate = _rx_rate/255
     uint8_t _rx_rate;
