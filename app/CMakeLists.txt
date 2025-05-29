@@ -63,7 +63,8 @@ target_include_directories(asio INTERFACE ${asio_SOURCE_DIR}/asio/include)
 # asio
 
 set(TARGET_NAME ubeacon_tag_logger)
-add_executable(${TARGET_NAME} main.cpp serial_port.cpp serial_port.hpp)
+add_executable(${TARGET_NAME} main.cpp serial_port.cpp serial_port.hpp
+                              msg_handle.hpp msg_handle.cpp)
 target_link_libraries(${TARGET_NAME} PRIVATE ubeacon_tag CLI11::CLI11 fmt::fmt
                                              spdlog::spdlog asio)
 target_compile_definitions(${TARGET_NAME} PRIVATE APP_NAME="${TARGET_NAME}")
