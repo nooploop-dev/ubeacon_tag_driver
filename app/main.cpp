@@ -86,9 +86,9 @@ int main(int argc, char *argv[]) {
     // 串口原始数据，字节流，可能有分包或者黏包出现
     spdlog::debug("data rx: {}B, {:02x}", data.size(), fmt::join(data, " "));
     ubeacon_uart_frame_parser_handle_data(&frame_parser, data.data(),
-                                          data.size());
+                                          int(data.size()));
   };
-  SerialPort serial_port(ioc, "COM24", 115200, data_ready);
+  SerialPort serial_port(ioc, args.port, args.baudrate, data_ready);
   ioc.run();
   return 0;
 }
