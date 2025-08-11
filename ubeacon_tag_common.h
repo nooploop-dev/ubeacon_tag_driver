@@ -63,6 +63,8 @@ typedef int64_t ubeacon_local_time_us_t;
 // 设备通信短地址
 typedef uint16_t ubeacon_addr_t;
 
+#pragma pack(push, 1)
+
 // 用于重启设备，部分配置参数变更后需要重启才会生效
 typedef struct {
   uint8_t delay;                      // 延迟时间
@@ -261,6 +263,8 @@ typedef struct {
     int16_t ddoa_cm;
   } datas[10];
 } UbeaconAnchorDdoas;
+
+#pragma pack(pop)
 
 #ifdef __cplusplus
 }
