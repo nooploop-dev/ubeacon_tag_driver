@@ -217,6 +217,8 @@ typedef struct {
   uint8_t firmware_version[4];
   // 唯一id
   uint8_t uid[6];
+  // 如使能电池，返回电压 voltage = _battery_voltage/40.0f;
+  uint8_t _battery_voltage;
 } UbeaconHeartbeat;
 
 // 每次定位对应的所有信标信号数据 变长
