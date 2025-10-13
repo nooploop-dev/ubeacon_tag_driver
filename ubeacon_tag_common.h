@@ -55,6 +55,10 @@ typedef enum {
   UBEACON_MSG_BLE_INTERFACE_PARAM = UBEACON_MSG_WRITE_BLE_INTERFACE_PARAM,
 
   UBEACON_MSG_ANCHOR_DDOAS = 104,
+
+  MSG_Z_MEASUREMENT = 111,
+
+  MSG_STATE_CONTROL = 112,
 } ubeacon_msg_e;
 
 // 表示标签本地时间，单位us，复位后从0开始
@@ -206,6 +210,8 @@ typedef struct {
   uint8_t assert_info_dirty : 1;
   // 任何原因重启，计数都会+1
   uint8_t restart_cnt : 3;
+  // 默认0，收到用户StateControl后，跟随对应sleep状态变化
+  uint8_t is_sleeping : 1;
   uint8_t : 0;
   // 用户通过硬件IO选定使能的接口情况
   uint8_t hardware_enabled_uart : 1;
@@ -263,6 +269,23 @@ typedef struct {
     int16_t ddoa_cm;
   } datas[10];
 } UbeaconAnchorDdoas;
+
+// 用户有准确的标签z坐标信息时，可通过此消息输入，可提升定位精度，降低地图切换延迟
+typedef struct {
+  // 距离零平面的相对高度
+  int32_t z_cm;
+  // 高度信息噪声标准差
+  uint8_t z_std_cm;
+  // 本次测量值超时时间，单位s，超时后如果没有收到新的高度测量值，则将退回到默认固定高度的状态
+  uint8_t timeout;
+} ZMeasurement;
+
+// 用户可通过此消息控制标签工作状态
+typedef struct {
+  // 0:唤醒 1:睡眠
+  uint8_t sleep : 1;
+  uint8_t : 0;
+} StateControl;
 
 #pragma pack(pop)
 
