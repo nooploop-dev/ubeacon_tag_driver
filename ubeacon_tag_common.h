@@ -56,9 +56,10 @@ typedef enum {
 
   UBEACON_MSG_ANCHOR_DDOAS = 104,
 
-  MSG_Z_MEASUREMENT = 111,
+  UBEACON_MSG_Z_MEASUREMENT = 111,
 
-  MSG_STATE_CONTROL = 112,
+  UBEACON_MSG_STATE_CONTROL = 112,
+  UBEACON_MSG_MAP_MEASUREMENT = 113,
 } ubeacon_msg_e;
 
 // 表示标签本地时间，单位us，复位后从0开始
@@ -286,6 +287,13 @@ typedef struct {
   uint8_t sleep : 1;
   uint8_t : 0;
 } StateControl;
+
+// 用户如果有其他方式知道自己在哪个地图，则可以输入优化定位
+typedef struct {
+  uint8_t map_id;
+  // 测量值超时时间，单位s
+  uint8_t timeout;
+} MapMeasurement;
 
 #pragma pack(pop)
 
