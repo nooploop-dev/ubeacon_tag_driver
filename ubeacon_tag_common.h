@@ -44,6 +44,8 @@ typedef enum {
   UBEACON_MSG_WRITE_UWB_INTERFACE_PARAM = 80,
   UBEACON_MSG_UWB_INTERFACE_PARAM = UBEACON_MSG_WRITE_UWB_INTERFACE_PARAM,
 
+  UBEACON_MSG_USER_DATA = 81,
+
   UBEACON_MSG_ANCHOR_SIGNAL = 96,
 
   UBEACON_MSG_READ_RUN_TIME_PARAM = 100,
@@ -229,6 +231,12 @@ typedef struct {
   // 如使能电池，返回电压 voltage = _battery_voltage/40.0f;
   uint8_t _battery_voltage;
 } UbeaconHeartbeat;
+
+typedef struct {
+  uint8_t reserved;
+  uint8_t payload_size;
+  uint8_t payload[64];
+} UbeaconUserData;
 
 // 每次定位对应的所有信标信号数据 变长
 typedef struct {
