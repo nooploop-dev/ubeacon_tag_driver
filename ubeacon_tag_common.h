@@ -20,6 +20,8 @@ typedef enum {
   UBEACON_MSG_RESTART = 2,
   UBEACON_MSG_FIND = 3,
 
+  UBEACON_MSG_GLOBAL_TIME_STATUS = 58,
+
   UBEACON_MSG_READ_PARAM = 60,
   UBEACON_MSG_WRITE_PARAM = 61,
   UBEACON_MSG_PARAM = UBEACON_MSG_WRITE_PARAM,
@@ -301,7 +303,23 @@ typedef struct {
   uint8_t map_id;
   // 测量值超时时间，单位s
   uint8_t timeout;
-} MapMeasurement;
+} UbeaconMapMeasurement;
+
+// 后台启用全局时间同步后，标签会跟随心跳发送全局时间同步状态消息，同时，引脚IO12在global_time%5000000
+// == 0时会有不少于2us的上升沿脉冲
+typedef struct {
+  // 是否处于时间同步状态
+  uint8_t run : 1;
+  // 用户超过多少s没有收到此消息可以认为标签已经退出时间同步状态，0表示不自动退出
+  uint8_t timeout : 7;
+  // 表示标签获取的全局时间的中间跳数，相对而言，跳数越大，误差越大
+  uint64_t ttl : 6;
+  uint64_t : 2;
+  // 全局时间，单位us
+  uint64_t time : 56;
+  // 当前节点时间同步跟随的目标设备
+  ubeacon_addr_t src;
+} UbeaconGlobalTimeStatus;
 
 #pragma pack(pop)
 
