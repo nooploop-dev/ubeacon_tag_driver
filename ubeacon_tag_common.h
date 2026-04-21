@@ -20,6 +20,7 @@ typedef enum {
   UBEACON_MSG_RESTART = 2,
   UBEACON_MSG_FIND = 3,
 
+  UBEACON_MSG_ANCHOR_POS = 51,
   UBEACON_MSG_GLOBAL_TIME_STATUS = 58,
 
   UBEACON_MSG_READ_PARAM = 60,
@@ -320,6 +321,17 @@ typedef struct {
   // 当前节点时间同步跟随的目标设备
   ubeacon_addr_t src;
 } UbeaconGlobalTimeStatus;
+
+typedef struct {
+  ubeacon_local_time_us_t local_time;
+  ubeacon_addr_t src;
+  int32_t pos_cm[3];
+  uint8_t is_local_pos : 1;
+  uint8_t : 0;
+  uint8_t map_id;
+  // map_z_cm = pos_cm[2] + relative_map_z_cm
+  int16_t relative_map_z_cm;
+} UbeaconAnchorPos;
 
 #pragma pack(pop)
 
